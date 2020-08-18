@@ -11,6 +11,11 @@ app.use(express.json());
 
 // Data
 const database = [];
+// var dataFile = JSON.parse(path.join(__dirname,"/db/db.json"));
+// $.getJSON('/db/db.json', function(data) {         
+//     console.log('whats the data',data);
+// });
+
 
 // Routes
 app.get("/", function(req, res) {
@@ -23,7 +28,7 @@ app.get("/notes", function(req, res) {
 
 app.get("/api/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "/db/db.json"));
-
+    // res.json("/db/db.json");
     
 
     // var mydata = JSON.parse(data);
@@ -40,13 +45,23 @@ app.get("/api/notes", function(req, res) {
 });
 
 app.post("/api/notes", function(req, res) {
+    const noteArr = [];
+
+    const data = fs.readFileSync("/db/db.json");
+    const readData = JSON.parse(data);
+    console.log(readData);
+
     var entry = req.body;
-    console.log("Entered: ", entry);
+
+    noteArr.push(readData);
+    noteArr.push(entry);
+    
+    const output = JSON.stringify(noteArr, null, 2);
     // look for simliar function like appendFile
-    fs.appendFile(path.join(__dirname,"/db/db.json"), entry, function(err) {
+    fs.writeFile(path.join(__dirname, "/db/db.json"), output, function(err) {
         if (err) throw err;
-        console.log("Checking to see this: ",entry);
     });
+    console.log("Done", output);
     
 });
 
