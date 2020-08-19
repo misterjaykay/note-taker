@@ -33,29 +33,22 @@ app.get("/api/notes", function(req, res) {
 });
 
 app.post("/api/notes", function(req, res) {
-    
     const data = fs.readFileSync(path.join(__dirname,"/db/db.json"));
     const parseData = JSON.parse(data);
-    // console.log(readData);
 
     var entry = req.body;
-
     parseData.push(entry);
+    for (var i = 0; i < parseData.length; i++) {
+        parseData[i].id = i;   
+    }
     
     const output = JSON.stringify(parseData, null, 2);
-    // const output = JSON.stringify(entry, null, 2);
 
-    // look for simliar function like appendFile
     fs.writeFile(path.join(__dirname, "/db/db.json"), output, function(err) {
         if (err) throw err;
     });
-    console.log("Done", output);
-    // fs.appendFile(path.join(__dirname, "/db/db.json"), output, function(err) {
-    //     if (err) throw err;
-    // });
-    // console.log("Done", output);
-    res.json(output);
-    
+
+    res.json(output);    
 });
 
 app.delete("/api/notes/:id", function(req, res) {
@@ -63,10 +56,10 @@ app.delete("/api/notes/:id", function(req, res) {
     const parseData = JSON.parse(data);
     
     var idNumb = req.params.id;
-    var newId = idNumb - 1;
-    console.log('number for this',idNumb);
-    console.log('number for this index',newId);
-    var newParse = parseData.splice(newId, 1);
+    parseData.splice(idNumb, 1);
+    for (var i = 0; i < parseData.length; i++) {
+        parseData[i].id = i;   
+    }
 
     const output = JSON.stringify(parseData, null, 2);
 
@@ -74,14 +67,15 @@ app.delete("/api/notes/:id", function(req, res) {
         if (err) throw err;
     });
     
-    res.json(idNumb);
-    /// Deleting data.
-    // for (var i = 0; i < parseData.length; i++);
-    // if (parseData.length[i]) {
-    //     parseData.splice(0, [i]);
-    // }
-
+    res.json(output);
 });
+
+/// Ref
+// const notes = require("./db/db.json");
+// app.delete("/api/notes/", function(req,res) {
+//     notes.length = 0;
+//     res.json({ok: true});
+// })
 
 // Listening
 app.listen(PORT, function(){

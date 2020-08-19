@@ -1,17 +1,22 @@
 [
   {
-    "id": 1,
-    "title": "Test Title",
-    "text": "Test text"
+    "title": "Dinner shop",
+    "text": "chicken\npasta\ntomato sauce\nonion",
+    "id": 0
   },
   {
-    "id": 2,
-    "title": "bye",
-    "text": "nye"
+    "title": "tomorrow to-do",
+    "text": "oil change\nemail client",
+    "id": 1
   },
   {
-    "id": 3,
-    "title": "note",
-    "text": "note"
+    "title": "Dad's gift",
+    "text": "ideas for dads birthday \nairpods pro\niphone\nwatch\nsuit",
+    "id": 2
+  },
+  {
+    "title": "email list",
+    "text": "chris\ndavid\nlauren\nsteve",
+    "id": 3
   }
 ]
