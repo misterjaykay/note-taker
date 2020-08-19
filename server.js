@@ -30,20 +30,6 @@ app.get("/notes", function(req, res) {
 
 app.get("/api/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "/db/db.json"));
-    // res.json("/db/db.json");
-    
-
-    // var mydata = JSON.parse(data);
-    // console.log(mydata[0].title);
-    // console.log(mydata[0].note);
-
-    // fs.readFile(path.join(__dirname,"/db/db.json"), function(err){
-    //     if (err) {
-    //         return err;
-    //     }
-    // })
-    // res.json();
-    // // res.sendFile("/db.json");
 });
 
 app.post("/api/notes", function(req, res) {
@@ -73,7 +59,18 @@ app.post("/api/notes", function(req, res) {
 });
 
 app.delete("/api/notes/:id", function(req, res) {
-    res.json
+    const data = fs.readFileSync(path.join(__dirname,"/db/db.json"));
+    const parseData = JSON.parse(data);
+    
+    var idNumb = req.params.id;
+    console.log('number for this',idNumb);
+
+    /// Deleting data.
+    // for (var i = 0; i < parseData.length; i++);
+    // if (parseData.length[i]) {
+    //     parseData.splice(0, [i]);
+    // }
+
 });
 
 // Listening
