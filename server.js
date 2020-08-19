@@ -4,10 +4,12 @@ const express = require("express");
 const fs = require("fs");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(express.static('public'));
 
 // Data
 const database = [];
@@ -45,23 +47,28 @@ app.get("/api/notes", function(req, res) {
 });
 
 app.post("/api/notes", function(req, res) {
-    const noteArr = [];
-
-    const data = fs.readFileSync("/db/db.json");
-    const readData = JSON.parse(data);
-    console.log(readData);
+    
+    const data = fs.readFileSync(path.join(__dirname,"/db/db.json"));
+    const parseData = JSON.parse(data);
+    // console.log(readData);
 
     var entry = req.body;
 
-    noteArr.push(readData);
-    noteArr.push(entry);
+    parseData.push(entry);
     
-    const output = JSON.stringify(noteArr, null, 2);
+    const output = JSON.stringify(parseData, null, 2);
+    // const output = JSON.stringify(entry, null, 2);
+
     // look for simliar function like appendFile
     fs.writeFile(path.join(__dirname, "/db/db.json"), output, function(err) {
         if (err) throw err;
     });
     console.log("Done", output);
+    // fs.appendFile(path.join(__dirname, "/db/db.json"), output, function(err) {
+    //     if (err) throw err;
+    // });
+    // console.log("Done", output);
+    res.json(output)
     
 });
 
