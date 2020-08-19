@@ -54,7 +54,7 @@ app.post("/api/notes", function(req, res) {
     //     if (err) throw err;
     // });
     // console.log("Done", output);
-    res.json(output)
+    res.json(output);
     
 });
 
@@ -63,8 +63,18 @@ app.delete("/api/notes/:id", function(req, res) {
     const parseData = JSON.parse(data);
     
     var idNumb = req.params.id;
+    var newId = idNumb - 1;
     console.log('number for this',idNumb);
+    console.log('number for this index',newId);
+    var newParse = parseData.splice(newId, 1);
 
+    const output = JSON.stringify(parseData, null, 2);
+
+    fs.writeFile(path.join(__dirname, "/db/db.json"), output, function(err) {
+        if (err) throw err;
+    });
+    
+    res.json(idNumb);
     /// Deleting data.
     // for (var i = 0; i < parseData.length; i++);
     // if (parseData.length[i]) {
