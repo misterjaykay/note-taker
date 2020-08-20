@@ -9,6 +9,7 @@
   - [Contribute](##Contribute)
   - [Test](##Test)
   - [Usage](##Usage)
+  - [Preview](##Preview)
   - [Questions](##Questions)
   - [Licenses](##Licenses)
 
