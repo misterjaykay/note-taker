@@ -11,16 +11,8 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-// Data
-const database = [];
-// var dataFile = JSON.parse(path.join(__dirname,"/db/db.json"));
-// $.getJSON('/db/db.json', function(data) {         
-//     console.log('whats the data',data);
-// });
-
-
 // Routes
-app.get("/", function(req, res) {
+app.get("*", function(req, res) {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
