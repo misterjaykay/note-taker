@@ -39,7 +39,7 @@ app.post("/api/notes", function(req, res) {
     var entry = req.body;
     parseData.push(entry);
     for (var i = 0; i < parseData.length; i++) {
-        parseData[i].id = i;   
+        parseData[i].id = i + 1;   
     }
     
     const output = JSON.stringify(parseData, null, 2);
@@ -58,7 +58,7 @@ app.delete("/api/notes/:id", function(req, res) {
     var idNumb = req.params.id;
     parseData.splice(idNumb, 1);
     for (var i = 0; i < parseData.length; i++) {
-        parseData[i].id = i;   
+        parseData[i].id = i + 1;   
     }
 
     const output = JSON.stringify(parseData, null, 2);
